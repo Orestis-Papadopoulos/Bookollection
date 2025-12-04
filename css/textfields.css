@@ -1,0 +1,14 @@
+
+.textfield {
+    all: unset;
+    background: hsla(214, 61%, 25%, 0.1);
+    padding: .4rem;
+}
+
+.search_textfield {
+    width: 40%;
+}
+
+#txtbox_username {
+    margin-bottom: .8rem;
+}

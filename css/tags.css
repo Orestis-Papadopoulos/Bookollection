@@ -1,0 +1,21 @@
+
+html, body {
+    margin: 0;
+    height: 100%;
+}
+
+label {
+    text-wrap: nowrap;
+    font-size: 10px;
+}
+
+summary {
+    list-style: none;
+}
+
+details {
+    margin-top: .6rem;
+    margin-bottom: .2rem;
+    padding: 0 .2rem .2rem 0;
+    border-bottom: 1px solid hsla(214, 53%, 23%, 0.16);
+}

@@ -1,0 +1,37 @@
+
+button {
+    all: unset;
+    user-select: none;
+    text-wrap: nowrap;
+}
+
+.btn_drawer {
+    aspect-ratio: 1 / 1;
+    padding: 1rem;
+    background-image: url('../images/drawer.svg');
+    background-size: 1.5em;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.btn_drawer:hover, .btn_clear_filters:hover, .secondary_btn:hover {
+    background-color: hsla(214, 57%, 24%, 0.1);
+}
+
+.btn_clear_filters {
+    aspect-ratio: 1 / 1;
+    margin-left: auto;
+    padding: 1rem;
+    background-image: url('../images/filter-xmark.svg');
+    background-size: 1.2em;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+.secondary_btn {
+    color: hsl(214, 90%, 48%);
+    background-color: hsla(214, 61%, 25%, 0.05);
+    padding: .4em .8em .4em .8em;
+    text-align: center;
+}

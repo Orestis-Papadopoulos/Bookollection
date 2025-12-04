@@ -1,0 +1,74 @@
+
+import * as element from "./index_elements.js";
+
+populate_books_grid(database_api.get_all_books());
+
+// LISTENERS
+
+element.btn_filters.addEventListener("click", () => {
+    element.filters_layout.classList.toggle("hidden_filters_layout");
+});
+
+element.btn_database.addEventListener("click", () => {
+    element.database_dialog.showModal();
+});
+
+// FUNCTIONS
+
+export function populate_books_grid(books_promise) {
+    books_promise.then((books) => {
+        if (books.length == 0) {
+            element.hint_no_matches.style.display = "inline";
+            return;
+        };
+        element.hint_no_matches.style.display = "none";
+        books.forEach((book) => {
+            if ("content" in document.createElement("template")) add_to_grid(book);
+            else console.log("Error while populating accounts grid: The HTML template element is not supported by the browser.");
+        });
+    });
+}
+
+export function add_to_grid(book) {
+    const book_entry_template =  document.querySelector("#book_entry_template");
+    const template_clone = book_entry_template.content.cloneNode(true);
+
+    const cover = template_clone.querySelector(".cover");
+    const book_title = template_clone.querySelector(".book_title");
+    const authors = template_clone.querySelector(".authors");
+    const edition = template_clone.querySelector(".edition");
+    const copyright_year = template_clone.querySelector(".copyright_year");
+    const book_uid = template_clone.querySelector(".book_uid");
+    const page_count = template_clone.querySelector(".page_count");
+
+    cover.src = book.cover_path;
+    book_title.textContent = book.title;
+    authors.textContent = book.authors;
+    edition.textContent = book.edition + " ed.";
+    copyright_year.textContent = book.copyright_year;
+    book_uid.textContent = book.uid;
+    page_count.textContent = book.page_count + " pages";
+    element.book_grid.appendChild(template_clone);
+    animate_overflown_text_of(book_title);
+    animate_overflown_text_of(authors);
+}
+
+/**
+*   If an element's text does not fit in the layout, the function makes
+*   it oscillate left-right so that all the text is readable.
+*   @param { Node } element The element whose text has overflown
+*/
+function animate_overflown_text_of(element) {
+    element.animate(
+        [
+            { transform: 'translateX(0)' },
+            { transform: 'translateX(0)' },
+            { transform: 'translateX(' + (element.offsetWidth - element.scrollWidth) + 'px)'},
+            { transform: 'translateX(' + (element.offsetWidth - element.scrollWidth) + 'px)'},
+            { transform: 'translateX(0)' }, // return smoothly to original position
+        ],
+        // duration is variable, as is the element's width
+        // duration is given as a function of width over a constant (arbitrary) speed; in this case 0.04
+        { duration: element.scrollWidth / 0.04, iterations: Infinity }
+    );
+}

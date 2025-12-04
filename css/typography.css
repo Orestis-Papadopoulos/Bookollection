@@ -1,0 +1,38 @@
+
+* {
+    font-size: 12px;
+    font-family: Arial;
+}
+
+.title {
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.subtitle {
+    font-size: 11px;
+}
+
+.book_title {
+    font-size: 12px;
+    font-weight: bold;
+    margin-bottom: .2rem;
+}
+
+.authors {
+    width: 100%;
+}
+
+#welcome_to {
+    font-size: 18px;
+}
+
+#bookollection {
+    font-size: 28px;
+}
+
+#register_to_view_your_books {
+    font-size: 12px;
+    margin: 2rem;
+    align-self: center;
+}

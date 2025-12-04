@@ -1,0 +1,114 @@
+
+/* CLASSES */
+
+.row_layout {
+    display: flex;
+}
+
+.column_layout {
+    display: flex;
+    flex-direction: column;
+}
+
+.grid_layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 31rem);
+    gap: .8rem;
+}
+
+div.hidden_filters_layout {
+    margin-left: calc(-15.6rem - 1px); /* width (14rem) plus padding left (.8rem) and right (.8rem) plus border width (1px) */
+}
+
+.checkbox_layout {
+    align-items: center;
+    column-gap: .2rem;
+}
+
+.book_entry_layout {
+    column-gap: .4rem;
+    padding: .4rem;
+    height: 6rem;
+    backdrop-filter: blur(10px);
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
+.book_data_layout {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.book_subtitle_layout {
+    column-gap: .4rem;
+    margin-top: .4rem;
+}
+
+.author_holder {
+    width: 15rem;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.book_data_footer {
+    margin-top: auto;
+}
+
+.textbox_layout {
+    margin-top: .8rem;
+    row-gap: .2rem;
+}
+
+/* IDs */
+
+#parent_layout {
+    height: 100%;
+}
+
+#filters_layout {
+    transition: margin-left 1s ease;
+    width: 14rem;
+    border-right: 1px solid hsla(214, 53%, 23%, 0.16);
+    border-top: 1px solid hsla(214, 53%, 23%, 0.16);
+    padding: .4rem .8rem;
+    overflow-y: auto;
+}
+
+#filters_title_layout {
+    margin-top: .2rem;
+}
+
+#main_layout {
+    width: 100%;
+    overflow: hidden;
+}
+
+#header_layout {
+    padding: .5rem;
+    column-gap: .5rem;
+    border-bottom: 1px solid hsla(214, 53%, 23%, 0.16);
+    border-top: 1px solid hsla(214, 53%, 23%, 0.16);
+}
+
+#subject_layout {
+    margin-left: -.2rem;
+}
+
+#grid_holder {
+    height: 100%;
+    overflow-y: auto;
+    background: linear-gradient(#9198e5, #e66465);
+    padding: 1rem;
+}
+
+#welcome_layout {
+    row-gap: .4rem;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+}
+
+#initial_register_layout {
+    row-gap: .4rem;
+}

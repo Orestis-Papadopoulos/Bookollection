@@ -1,0 +1,10 @@
+
+.svg_arrow {
+    transition: .6s ease-in-out;
+    height: 1.2rem;
+    margin-left: auto;
+}
+
+.cover {
+    aspect-ratio: 5 / 6;
+}

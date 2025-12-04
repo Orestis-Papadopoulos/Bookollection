@@ -1,0 +1,27 @@
+
+#subject_details {
+    margin-top: 1rem;
+}
+
+.details_container {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height .6s ease-in-out;
+    flex-shrink: 0; /* keeps height fixed; allows overflow, and scrolling */
+}
+
+details[open] + #subject_container {
+    max-height: 24rem;
+}
+
+details[open] + #publication_year_container {
+    max-height: 7rem;
+}
+
+details[open] + #page_count_container {
+    max-height: 7rem;
+}
+
+details[open] > summary > div > img {
+    transform: rotateX(-180deg);
+}

@@ -1,0 +1,25 @@
+
+.horizontal_divider {
+    border-top: 1px solid rgba(0, 0, 0, .2);
+    width: 100%;
+}
+
+.edition, .page_count {
+    margin-left: auto;
+}
+
+.page_count {
+    color: rgba(255, 255, 255, .7);
+}
+
+#filters_title {
+    align-content: center;
+}
+
+#hint_no_matches {
+    display: none;
+}
+
+#database_file {
+    margin-bottom: 2rem;
+}
