@@ -41,7 +41,8 @@ export function add_to_grid(book) {
     const book_uid = template_clone.querySelector(".book_uid");
     const page_count = template_clone.querySelector(".page_count");
 
-    cover.src = book.cover_path;
+//    cover.src = book.cover_path;
+    cover.src = get_blob_url(book.cover_img);
     book_title.textContent = book.title;
     authors.textContent = book.authors;
     edition.textContent = book.edition + " ed.";
@@ -71,4 +72,11 @@ function animate_overflown_text_of(element) {
         // duration is given as a function of width over a constant (arbitrary) speed; in this case 0.04
         { duration: element.scrollWidth / 0.04, iterations: Infinity }
     );
+}
+
+function get_blob_url(blob_img) {
+    let binary_data = [];
+    binary_data.push(blob_img);
+    let blob = new Blob(binary_data);
+    return window.URL.createObjectURL(blob);
 }

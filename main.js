@@ -11,8 +11,7 @@ let tmp_filter_query_args = [];
 
 const createWindow = () => {
     const mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        show: false, // see 'ready-to-show'
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
         }
@@ -21,7 +20,12 @@ const createWindow = () => {
     mainWindow.maximize();
     mainWindow.openDevTools();
     mainWindow.setMenu(null);
-    mainWindow.loadFile('index.html')
+    mainWindow.loadFile('index.html');
+
+    // use this to prevent black screen on load
+    mainWindow.once('ready-to-show', () => {
+        mainWindow.show();
+    });
 }
 
 app.whenReady().then(() => {
