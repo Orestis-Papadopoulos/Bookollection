@@ -18,7 +18,7 @@ const createWindow = () => {
     })
 
     mainWindow.maximize();
-    mainWindow.openDevTools();
+//    mainWindow.openDevTools();
     mainWindow.setMenu(null);
     mainWindow.loadFile('index.html');
 

@@ -41,7 +41,6 @@ export function add_to_grid(book) {
     const book_uid = template_clone.querySelector(".book_uid");
     const page_count = template_clone.querySelector(".page_count");
 
-//    cover.src = book.cover_path;
     cover.src = get_blob_url(book.cover_img);
     book_title.textContent = book.title;
     authors.textContent = book.authors;
