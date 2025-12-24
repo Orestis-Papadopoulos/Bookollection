@@ -63,6 +63,7 @@ div.hidden_filters_layout {
 
 #parent_layout {
     height: 100%;
+    display: none; /********************************************************************************************/
 }
 
 #filters_layout {
@@ -111,4 +112,31 @@ div.hidden_filters_layout {
 
 #initial_register_layout {
     row-gap: .4rem;
+}
+
+#database_layout {
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+#database_dialog_layout {
+    gap: .4rem;
+}
+
+#database_buttons_layout {
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    width: 100%;
+}
+
+#load_database_layout {
+    background: white;
+    gap: .4rem;
+    width: fit-content;
+    align-items: center;
+    padding: .5rem;
 }

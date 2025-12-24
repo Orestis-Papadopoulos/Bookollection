@@ -1,11 +1,13 @@
 
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, BrowserWindow, ipcMain, dialog } = require('electron')
 const path = require('node:path');
 const sqlite3 = require('sqlite3');
 
 // todo: allow the user to load a database file and choose to make it the default file when the app opens
 // store the default file's path in a txt file and read it
-const db = new sqlite3.Database('bookollection.db');
+
+var database_file_path = "";
+var db;
 
 let tmp_filter_query_args = [];
 
@@ -18,7 +20,7 @@ const createWindow = () => {
     })
 
     mainWindow.maximize();
-//    mainWindow.openDevTools();
+    mainWindow.openDevTools();
     mainWindow.setMenu(null);
     mainWindow.loadFile('index.html');
 
@@ -49,6 +51,20 @@ app.whenReady().then(() => {
             db.all(sqlQuery, tmp_filter_query_args, (err, rows) => {
                 res(rows);
             });
+        });
+    });
+
+    ipcMain.on('load_database', () => {
+        dialog.showOpenDialog({
+            title: "Bookollection - Load a Database",
+            buttonLabel: "Load",
+            properties: ['openFile'],
+            filters: [{ name: "SQLite", extensions: ["db"] }]
+        }).then(selected_file => {
+            database_file_path = selected_file.filePaths[0];
+            // todo: by default the selected path is set as the default database (i.e., save the path to a file)
+
+            db = new sqlite3.Database(database_file_path);
         });
     });
 

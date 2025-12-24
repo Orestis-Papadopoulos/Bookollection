@@ -19,4 +19,6 @@ contextBridge.exposeInMainWorld('database_api', {
 
     get_filter_query_args: (filter_query_args) => ipcRenderer.send('get_filter_query_args_channel', filter_query_args),
     get_filtered_books: () => ipcRenderer.invoke('get_filtered_books_channel', filter_query),
+
+    load_database: () => ipcRenderer.send('load_database'),
 });

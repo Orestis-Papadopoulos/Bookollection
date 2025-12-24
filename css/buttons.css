@@ -35,3 +35,7 @@ button {
     padding: .4em .8em .4em .8em;
     text-align: center;
 }
+
+#btn_load_database, #btn_create_database {
+    flex-grow: 1;
+}

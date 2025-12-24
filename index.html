@@ -21,6 +21,19 @@
 </head>
 <body>
 
+    <div id="database_layout" class="column_layout">
+        <div id="load_database_layout" class="column_layout">
+            <span id="welcome_to">Welcome to</span>
+            <span id="bookollection">Bookollection</span>
+            <div id="database_buttons_layout" class="row_layout">
+                <button id="btn_load_database" class="secondary_btn">Load</button>
+                <span>or</span>
+                <button id="btn_create_database" class="secondary_btn">Create</button>
+            </div>
+            <span>a database to view your collection</span>
+        </div>
+    </div>
+
     <div id="parent_layout" class="row_layout">
 
         <div id="filters_layout" class="column_layout">
@@ -116,8 +129,8 @@
 
 <!--            todo: create layout -->
             <dialog id="database_dialog">
-                <div id="database_dialog_layout">
-                    <span>Hello, Database!</span>
+                <div id="database_dialog_layout" class="column_layout">
+
                 </div>
             </dialog>
 
@@ -125,7 +138,7 @@
 
                 <template id="book_entry_template">
                     <div class="row_layout book_entry_layout">
-                        <img class="cover" src="">
+                        <img class="cover" src="">task
                         <div class="column_layout book_data_layout">
                             <span class="book_title">Skin in the Game: Hidden Asymmetries in Daily Life</span>
                             <div class="horizontal_divider"></div>
