@@ -6,13 +6,15 @@ const sqlite3 = require('sqlite3');
 // todo: allow the user to load a database file and choose to make it the default file when the app opens
 // store the default file's path in a txt file and read it
 
-var database_file_path = "";
+var database_file_path;
 var db;
 
 let tmp_filter_query_args = [];
 
+var mainWindow; // to access in 'load_database'
 const createWindow = () => {
-    const mainWindow = new BrowserWindow({
+    // const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         show: false, // see 'ready-to-show'
         webPreferences: {
             preload: path.join(__dirname, 'preload.js')
@@ -20,7 +22,7 @@ const createWindow = () => {
     })
 
     mainWindow.maximize();
-    mainWindow.openDevTools();
+//    mainWindow.openDevTools();
     mainWindow.setMenu(null);
     mainWindow.loadFile('index.html');
 
@@ -31,6 +33,25 @@ const createWindow = () => {
 }
 
 app.whenReady().then(() => {
+
+    // todo: if there is a default database load books
+
+    ipcMain.on('load_database', () => {
+        dialog.showOpenDialog({
+            title: "Bookollection - Load a Database",
+            buttonLabel: "Load",
+            properties: ['openFile'],
+            filters: [{ name: "SQLite", extensions: ["db"] }]
+        }).then(selected_file => {
+            database_file_path = selected_file.filePaths[0];
+            db = new sqlite3.Database(database_file_path);
+
+            // todo: check if database has the correct columns
+            mainWindow.webContents.send('populate_grid', null);
+
+            // todo: by default the selected path is set as the default database (i.e., save the path to a file)
+        });
+    });
 
     ipcMain.handle('get_all_books_channel', async (event, sqlQuery) => {
         return new Promise(res => {
@@ -51,20 +72,6 @@ app.whenReady().then(() => {
             db.all(sqlQuery, tmp_filter_query_args, (err, rows) => {
                 res(rows);
             });
-        });
-    });
-
-    ipcMain.on('load_database', () => {
-        dialog.showOpenDialog({
-            title: "Bookollection - Load a Database",
-            buttonLabel: "Load",
-            properties: ['openFile'],
-            filters: [{ name: "SQLite", extensions: ["db"] }]
-        }).then(selected_file => {
-            database_file_path = selected_file.filePaths[0];
-            // todo: by default the selected path is set as the default database (i.e., save the path to a file)
-
-            db = new sqlite3.Database(database_file_path);
         });
     });
 

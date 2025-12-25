@@ -1,16 +1,18 @@
 
 import * as element from "./index_elements.js";
 
-// todo: if there is a default database load books
-// todo: populate grid when database is loaded
 // todo: populate filters by reading the .db file; each book subject goes to filters
-
-populate_books_grid(database_api.get_all_books());
 
 // LISTENERS
 
 element.btn_load_database.addEventListener("click", () => {
     database_api.load_database();
+});
+
+database_api.on_database_load((value) => {
+    populate_books_grid(database_api.get_all_books());
+    element.database_layout.style.display = "none";
+    element.parent_layout.classList.toggle("visible_parent_layout");
 });
 
 element.btn_filters.addEventListener("click", () => {

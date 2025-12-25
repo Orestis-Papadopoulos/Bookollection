@@ -16,10 +16,6 @@
     gap: .8rem;
 }
 
-div.hidden_filters_layout {
-    margin-left: calc(-15.6rem - 1px); /* width (14rem) plus padding left (.8rem) and right (.8rem) plus border width (1px) */
-}
-
 .checkbox_layout {
     align-items: center;
     column-gap: .2rem;
@@ -59,12 +55,12 @@ div.hidden_filters_layout {
     row-gap: .2rem;
 }
 
-/* IDs */
-
-#parent_layout {
-    height: 100%;
-    display: none; /********************************************************************************************/
+/* used to be: div.hidden_filters_layout (?) */
+.hidden_filters_layout {
+    margin-left: calc(-15.6rem - 1px); /* width (14rem) plus padding left (.8rem) and right (.8rem) plus border width (1px) */
 }
+
+/* IDs */
 
 #filters_layout {
     transition: margin-left 1s ease;
@@ -112,6 +108,17 @@ div.hidden_filters_layout {
 
 #initial_register_layout {
     row-gap: .4rem;
+}
+
+
+.parent_layout {
+    height: 100%;
+    opacity: 0;
+    transition: opacity 3s ease;
+}
+
+.visible_parent_layout {
+    opacity: 1;
 }
 
 #database_layout {
