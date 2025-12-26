@@ -3,6 +3,9 @@ const { app, BrowserWindow, ipcMain, dialog, Notification } = require('electron'
 const path = require('node:path');
 const sqlite3 = require('sqlite3');
 
+const SQL_CHECK_IF_BOOKS_TABLE = "SELECT name FROM sqlite_master WHERE type='table' AND name='Books'";
+const SQL_GET_BOOKS_COLUMNS = "PRAGMA table_info(Books)";
+
 // todo: allow the user to load a database file and choose to make it the default file when the app opens
 // store the default file's path in a txt file and read it
 
@@ -22,7 +25,7 @@ const createWindow = () => {
     })
 
     mainWindow.maximize();
-    mainWindow.openDevTools();
+//    mainWindow.openDevTools();
     mainWindow.setMenu(null);
     mainWindow.loadFile('index.html');
 
@@ -86,36 +89,40 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
 
-function check_database_for_Books() {
-    db.all("SELECT name FROM sqlite_master WHERE type='table' AND name='Books'", (err, rows) => {
-        if (rows.length != 0) return true;
-        new Notification({
-            title: "Incorrect Database Schema",
-            body: "The database you tried to load does not have a 'Books' table."
-        }).show();
-        return false;
+function database_has_table_Books() {
+    return new Promise(res => {
+       db.all(SQL_CHECK_IF_BOOKS_TABLE, (err, rows) => {
+            res(rows.length != 0 ? true : false);
+            if (rows.length == 0) notify("Incorrect Database Schema", "The database you tried to load does not have a 'Books' table.");
+        });
     });
 }
 
-function check_Books_for_columns() {
+function table_Books_has_correct_columns() {
     const correct_column_names = ["title", "authors", "copyright_year", "edition", "page_count", "subject", "uid", "cover_img"];
-    db.all("PRAGMA table_info(Books)", (err, rows) => {
-        for (let i = 0; i < rows.length; i++) {
-            if (rows[i].name == correct_column_names[i]) continue;
-            new Notification({
-                title: "Incorrect Database Schema",
-                body: "The database you tried to load does not have the correct attributes (columns)."
-            }).show();
-            return false;
-        }
-        return true;
+    return new Promise(res => {
+        db.all(SQL_GET_BOOKS_COLUMNS, (err, rows) => {
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i].name == correct_column_names[i]) continue;
+                notify("Incorrect Database Schema", "The database you tried to load does not have the correct attributes (columns).");
+                res(false);
+                break;
+            }
+            res(true);
+        });
     });
 }
 
 async function populate_grid() {
-    let books_table_exists = await check_database_for_Books();
-    let books_has_correct_columns = await check_Books_for_columns();
-    console.log(books_table_exists);
-    console.log(books_has_correct_columns);
-    if (books_table_exists && books_has_correct_columns) mainWindow.webContents.send('populate_grid', null);
+    let database_has_correct_format = await database_has_table_Books() && await table_Books_has_correct_columns();
+    if (!database_has_correct_format) return;
+    mainWindow.webContents.send('populate_grid', null);
+    notify("Database Successfully Loaded", "You are viewing " + database_file_path.split("\\").slice(-1));
+}
+
+function notify(title, body) {
+    new Notification({
+        title: title,
+        body: body
+    }).show();
 }
