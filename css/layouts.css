@@ -117,7 +117,7 @@
     transition: opacity 3s ease;
 }
 
-.visible_parent_layout {
+.visible  {
     opacity: 1;
 }
 

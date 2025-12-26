@@ -12,7 +12,7 @@ element.btn_load_database.addEventListener("click", () => {
 database_api.on_database_load((value) => {
     populate_books_grid(database_api.get_all_books());
     element.database_layout.style.display = "none";
-    element.parent_layout.classList.toggle("visible_parent_layout");
+    element.parent_layout.classList.toggle("visible");
 });
 
 element.btn_filters.addEventListener("click", () => {
