@@ -2,21 +2,21 @@
 const { app, BrowserWindow, ipcMain, dialog, Notification } = require('electron')
 const path = require('node:path');
 const sqlite3 = require('sqlite3');
+const fs = require('fs');
 
 const SQL_CHECK_IF_BOOKS_TABLE = "SELECT name FROM sqlite_master WHERE type='table' AND name='Books'";
 const SQL_GET_BOOKS_COLUMNS = "PRAGMA table_info(Books)";
 
-// todo: allow the user to load a database file and choose to make it the default file when the app opens
-// store the default file's path in a txt file and read it
-
-var database_file_path;
 var db;
+var database_file_path = fs.readFileSync('database.path.txt', 'utf8');
+const has_default_database = database_file_path.length == 0 ? false : true;
 
 let tmp_filter_query_args = [];
 
-var mainWindow; // to access in 'load_database'
+if (process.platform === 'win32') app.setAppUserModelId(app.name); // to display app name in Notification
+
+var mainWindow;
 const createWindow = () => {
-    // const mainWindow = new BrowserWindow({
     mainWindow = new BrowserWindow({
         show: false, // see 'ready-to-show'
         webPreferences: {
@@ -29,15 +29,16 @@ const createWindow = () => {
     mainWindow.setMenu(null);
     mainWindow.loadFile('index.html');
 
-    // use this to prevent black screen on load
-    mainWindow.once('ready-to-show', () => {
+    mainWindow.once('ready-to-show', () => { // prevent black screen on load
+        if (has_default_database) {
+            db = new sqlite3.Database(database_file_path);
+            populate_grid();
+        }
         mainWindow.show();
     });
 }
 
 app.whenReady().then(() => {
-
-    // todo: if there is a default database load books
 
     ipcMain.on('load_database', () => {
         dialog.showOpenDialog({
@@ -49,8 +50,6 @@ app.whenReady().then(() => {
             database_file_path = selected_file.filePaths[0];
             db = new sqlite3.Database(database_file_path);
             populate_grid();
-
-            // todo: by default the selected path is set as the default database (i.e., save the path to a file)
         });
     });
 
@@ -61,8 +60,6 @@ app.whenReady().then(() => {
             });
         });
     });
-
-    //
 
     ipcMain.on('get_filter_query_args_channel', (event, filter_query_args) => {
         tmp_filter_query_args = filter_query_args;
@@ -76,9 +73,7 @@ app.whenReady().then(() => {
         });
     });
 
-    //
-
-  createWindow()
+    createWindow()
 
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) createWindow()
@@ -89,10 +84,18 @@ app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
 
+async function populate_grid() {
+    let database_has_correct_format = await database_has_table_Books() && await table_Books_has_correct_columns();
+    if (!database_has_correct_format) return;
+    mainWindow.webContents.send('populate_grid', null);
+    notify("Database Successfully Loaded", "You are viewing: " + database_file_path.split("\\").slice(-1));
+    if (!has_default_database) save_database_path();
+}
+
 function database_has_table_Books() {
     return new Promise(res => {
        db.all(SQL_CHECK_IF_BOOKS_TABLE, (err, rows) => {
-            res(rows.length != 0 ? true : false);
+            res(rows.length == 0 ? false : true);
             if (rows.length == 0) notify("Incorrect Database Schema", "The database you tried to load does not have a 'Books' table.");
         });
     });
@@ -113,11 +116,10 @@ function table_Books_has_correct_columns() {
     });
 }
 
-async function populate_grid() {
-    let database_has_correct_format = await database_has_table_Books() && await table_Books_has_correct_columns();
-    if (!database_has_correct_format) return;
-    mainWindow.webContents.send('populate_grid', null);
-    notify("Database Successfully Loaded", "You are viewing " + database_file_path.split("\\").slice(-1));
+function save_database_path() {
+    fs.writeFile('database.path.txt', database_file_path, (err) => {
+        if (err) throw err;
+    });
 }
 
 function notify(title, body) {

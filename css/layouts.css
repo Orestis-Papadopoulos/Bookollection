@@ -98,14 +98,6 @@
     padding: 1rem;
 }
 
-#welcome_layout {
-    row-gap: .4rem;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-}
-
 #initial_register_layout {
     row-gap: .4rem;
 }
