@@ -5,6 +5,10 @@ import * as element from "./index_elements.js";
 
 // LISTENERS
 
+database_api.no_default_database((value) => {
+    element.database_layout.style.display = "flex";
+});
+
 element.btn_load_database.addEventListener("click", () => {
     database_api.load_database();
 });
@@ -21,6 +25,10 @@ element.btn_filters.addEventListener("click", () => {
 
 element.btn_database.addEventListener("click", () => {
     element.database_dialog.showModal();
+});
+
+element.btn_close_dialog.addEventListener("click", () => {
+    element.database_dialog.close();
 });
 
 // FUNCTIONS

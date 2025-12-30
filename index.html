@@ -129,10 +129,24 @@
                 <!-- todo: add option to display books as one, two, or three columns -->
             </div>
 
-<!--            todo: create layout -->
             <dialog id="database_dialog">
                 <div id="database_dialog_layout" class="column_layout">
+                    <div class="row_layout" id="database_options_layout">
+                        <span><b>Database Options</b></span>
+                        <button id="btn_close_dialog"></button>
+                    </div>
 
+                    <div class="column_layout">
+                        <span>You are viewing</span>
+                        <div class="row_layout" id="load_another_db_layout">
+                            <input type="search" class="textfield" placeholder="bookollection.db" readonly>
+                            <button class="secondary_btn">Change</button>
+                        </div>
+                    </div>
+                    <div class="row_layout checkbox_layout" id="set_as_default_layout">
+                        <input type="checkbox" id="set_default_database" checked>
+                        <label for="set_default_database">Load last viewed file on start</label>
+                    </div>
                 </div>
             </dialog>
 

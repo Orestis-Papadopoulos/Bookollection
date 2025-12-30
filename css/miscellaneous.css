@@ -19,3 +19,7 @@
 #hint_no_matches {
     display: none;
 }
+
+#set_default_database {
+    margin: 0;
+}

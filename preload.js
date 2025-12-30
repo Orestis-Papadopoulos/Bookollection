@@ -21,5 +21,7 @@ contextBridge.exposeInMainWorld('database_api', {
     get_filtered_books: () => ipcRenderer.invoke('get_filtered_books_channel', filter_query),
 
     load_database: () => ipcRenderer.send('load_database'),
-    on_database_load: (callback) => ipcRenderer.on('populate_grid', (_event, value) => callback(value))
+    on_database_load: (callback) => ipcRenderer.on('populate_grid', (_event, value) => callback(value)),
+
+    no_default_database: (callback) => ipcRenderer.on('show_database_load_layout', (_event, value) => callback(value)),
 });

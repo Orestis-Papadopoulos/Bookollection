@@ -14,7 +14,7 @@ button {
     background-position: center;
 }
 
-.btn_drawer:hover, .btn_clear_filters:hover, .secondary_btn:hover {
+.btn_drawer:hover, .btn_clear_filters:hover, .secondary_btn:hover, #btn_close_dialog:hover {
     background-color: hsla(214, 57%, 24%, 0.1);
 }
 
@@ -38,4 +38,15 @@ button {
 
 #btn_load_database, #btn_create_database {
     flex-grow: 1;
+}
+
+#btn_close_dialog {
+    aspect-ratio: 1 / 1;
+    margin-left: auto;
+    padding: .8rem;
+    background-image: url('../images/cross.svg');
+    background-size: 1.2em;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-color: hsla(214, 61%, 25%, 0.05);
 }

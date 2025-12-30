@@ -22,3 +22,5 @@ export const btn_database = document.getElementById("btn_database");
 export const btn_load_database = document.getElementById("btn_load_database");
 export const database_layout = document.getElementById("database_layout");
 export const parent_layout = document.getElementById("parent_layout");
+
+export const btn_close_dialog = document.getElementById("btn_close_dialog");

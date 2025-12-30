@@ -33,7 +33,7 @@ const createWindow = () => {
         if (has_default_database) {
             db = new sqlite3.Database(database_file_path);
             populate_grid();
-        }
+        } else mainWindow.webContents.send('show_database_load_layout', null);
         mainWindow.show();
     });
 }
