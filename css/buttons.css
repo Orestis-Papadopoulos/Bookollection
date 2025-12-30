@@ -43,10 +43,9 @@ button {
 #btn_close_dialog {
     aspect-ratio: 1 / 1;
     margin-left: auto;
-    padding: .8rem;
+    padding: .7rem;
     background-image: url('../images/cross.svg');
-    background-size: 1.2em;
+    background-size: 1em;
     background-repeat: no-repeat;
     background-position: center;
-    background-color: hsla(214, 61%, 25%, 0.05);
 }

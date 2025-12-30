@@ -109,12 +109,12 @@
 
             <div class="column_layout textbox_layout">
                 <span class="subtitle">Copyright year</span>
-                <input type="search" class="textfield" id="txtbox_copyright_year" required pattern="" maxlength="10" title="">
+                <input type="search" class="textfield" id="txtbox_copyright_year" required pattern="" maxlength="10" title="" spellcheck="false">
             </div>
 
             <div class="column_layout textbox_layout">
                 <span class="subtitle">Page count</span>
-                <input type="search" class="textfield" id="txtbox_page_count">
+                <input type="search" class="textfield" id="txtbox_page_count" spellcheck="false">
             </div>
 
         </div>
@@ -123,29 +123,30 @@
 
             <div id="header_layout" class="row_layout">
                 <button id="btn_filters" type="button" class="btn_drawer"></button>
-                <input type="search" class="textfield search_textfield" id="txtbox_search" placeholder="Search title, author, edition, or identifier">
+                <input type="search" class="textfield search_textfield" id="txtbox_search" placeholder="Search title, author, edition, or identifier" spellcheck="false">
                 <button id="btn_database" class="secondary_btn">Database</button>
 
                 <!-- todo: add option to display books as one, two, or three columns -->
             </div>
 
             <dialog id="database_dialog">
-                <div id="database_dialog_layout" class="column_layout">
+                <div class="column_layout dialog_parent_layout">
                     <div class="row_layout" id="database_options_layout">
                         <span><b>Database Options</b></span>
                         <button id="btn_close_dialog"></button>
                     </div>
-
-                    <div class="column_layout">
-                        <span>You are viewing</span>
-                        <div class="row_layout" id="load_another_db_layout">
-                            <input type="search" class="textfield" placeholder="bookollection.db" readonly>
-                            <button class="secondary_btn">Change</button>
+                    <div id="database_dialog_layout" class="column_layout">
+                        <div class="column_layout">
+                            <span>You are viewing</span>
+                            <div class="row_layout" id="load_another_db_layout">
+                                <input type="search" class="textfield" placeholder="bookollection.db" readonly>
+                                <button class="secondary_btn">Change</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="row_layout checkbox_layout" id="set_as_default_layout">
-                        <input type="checkbox" id="set_default_database" checked>
-                        <label for="set_default_database">Load last viewed file on start</label>
+                        <div class="row_layout checkbox_layout" id="set_as_default_layout">
+                            <input type="checkbox" id="set_default_database" checked>
+                            <label for="set_default_database">Load last viewed file on start</label>
+                        </div>
                     </div>
                 </div>
             </dialog>
