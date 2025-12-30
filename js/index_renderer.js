@@ -27,7 +27,7 @@ element.btn_database.addEventListener("click", () => {
     element.database_dialog.showModal();
 });
 
-element.btn_close_dialog.addEventListener("click", () => {
+element.btn_database_options_ok.addEventListener("click", () => {
     element.database_dialog.close();
 });
 
@@ -87,8 +87,8 @@ function animate_overflown_text_of(element) {
             { transform: 'translateX(0)' }, // return smoothly to original position
         ],
         // duration is variable, as is the element's width
-        // duration is given as a function of width over a constant (arbitrary) speed; in this case 0.04
-        { duration: element.scrollWidth / 0.04, iterations: Infinity }
+        // duration is given as a function of overflown width over a constant (arbitrary) speed; in this case 0.002
+        { duration: (element.scrollWidth - element.offsetWidth) / 0.002, iterations: Infinity }
     );
 }
 

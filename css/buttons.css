@@ -39,13 +39,3 @@ button {
 #btn_load_database, #btn_create_database {
     flex-grow: 1;
 }
-
-#btn_close_dialog {
-    aspect-ratio: 1 / 1;
-    margin-left: auto;
-    padding: .7rem;
-    background-image: url('../images/cross.svg');
-    background-size: 1em;
-    background-repeat: no-repeat;
-    background-position: center;
-}
