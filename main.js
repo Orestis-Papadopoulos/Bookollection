@@ -1,4 +1,3 @@
-
 const { app, BrowserWindow, ipcMain, dialog, Notification } = require('electron')
 const path = require('node:path');
 const sqlite3 = require('sqlite3');
