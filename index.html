@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="css/details.css">
     <link rel="stylesheet" href="css/textfields.css">
 
-    <!--  "In order to use the import declaration in a source file, the file must be interpreted by the runtime as a module."  -->
+    <!--  "In order to use the import declaration in a source file, the file must be interpreted by the runtime as a 'module'."  -->
     <script src="js/jquery.js"></script>
     <script type="module" src="js/index_renderer.js"></script>
     <script type="module" src="js/filters.js"></script>
@@ -46,7 +46,7 @@
                 <summary>
                     <div class="row_layout summary_layout">
                         <span class="subtitle">Subject</span>
-                        <img class="svg_arrow" src="images/details_down_arrow.svg">
+                        <img class="details_arrow" src="images/details_down_arrow.svg">
                     </div>
                 </summary>
             </details>
@@ -136,7 +136,7 @@
                     </div>
                     <div id="database_dialog_layout" class="column_layout">
                         <div class="column_layout">
-                            <span>You are viewing</span>
+                            <span>Loaded file</span>
                             <div class="row_layout" id="load_another_db_layout">
                                 <input type="search" class="textfield" placeholder="bookollection.db" readonly>
                                 <button class="secondary_btn">Change</button>
@@ -155,18 +155,18 @@
 
                 <template id="book_entry_template">
                     <div class="row_layout book_entry_layout">
-                        <img class="cover" src="">
+                        <img class="book_cover" src="">
                         <div class="column_layout book_data_layout">
                             <span class="book_title">Skin in the Game: Hidden Asymmetries in Daily Life</span>
                             <div class="horizontal_divider"></div>
                             <div class="row_layout book_subtitle_layout">
-                                <div class="row_layout author_holder">
+                                <div class="row_layout authors_layout">
                                     <span class="authors">Nassim Nicholas Taleb</span>
                                 </div>
                                 <span class="edition">1st ed.</span>
                                 <span class="copyright_year">2018</span>
                             </div>
-                            <div class="row_layout book_data_footer">
+                            <div class="row_layout book_footer_layout">
                                 <span class="book_uid">PHI 001</span>
                                 <span class="page_count">279 pages</span>
                             </div>

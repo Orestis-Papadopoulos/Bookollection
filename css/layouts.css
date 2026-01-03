@@ -1,5 +1,15 @@
 
-/* CLASSES */
+/* by CLASS */
+
+.parent_layout {
+    height: 100%;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.visible  {
+    opacity: 1;
+}
 
 .row_layout {
     display: flex;
@@ -14,6 +24,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, 31rem);
     gap: .8rem;
+    /* justify-content: center; */
 }
 
 .checkbox_layout {
@@ -27,6 +38,7 @@
     height: 6rem;
     backdrop-filter: blur(10px);
     background-color: rgba(0, 0, 0, 0.1);
+    /* background: linear-gradient(#414a4c, #3b444b); */
 }
 
 .book_data_layout {
@@ -40,13 +52,13 @@
     margin-top: .4rem;
 }
 
-.author_holder {
-    width: 15rem;
+.authors_layout {
+    width: 16rem;
     overflow: hidden;
     white-space: nowrap;
 }
 
-.book_data_footer {
+.book_footer_layout {
     margin-top: auto;
 }
 
@@ -55,12 +67,16 @@
     row-gap: .2rem;
 }
 
-/* used to be: div.hidden_filters_layout (?) */
 .hidden_filters_layout {
     margin-left: calc(-15.6rem - 1px); /* width (14rem) plus padding left (.8rem) and right (.8rem) plus border width (1px) */
 }
 
-/* IDs */
+.dialog_parent_layout {
+    padding: 0;
+    margin: 0;
+}
+
+/* by ID */
 
 #filters_layout {
     transition: margin-left 1s ease;
@@ -98,24 +114,15 @@
     padding: 1rem;
 }
 
-#initial_register_layout {
-    row-gap: .4rem;
-}
-
-.parent_layout {
-    height: 100%;
-    opacity: 0;
-    transition: opacity 2s ease;
-}
-
-.visible  {
-    opacity: 1;
-}
-
 #database_dialog {
     border: none;
     height: fit-content;
     padding: 0;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+    &[open] {
+        animation: fadeIn 1s forwards;
+    }
 }
 
 #database_dialog_layout {
@@ -154,6 +161,8 @@
     width: 100%;
 }
 
+/* */
+
 #database_options_layout {
     align-items: center;
     padding: .5rem .8rem;
@@ -165,7 +174,14 @@
     column-gap: .4rem;
 }
 
-.dialog_parent_layout {
-    padding: 0;
-    margin: 0;
+/* ANIMATIONS */
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        translate: 0 -10vh;
+    } to {
+        opacity: 1;
+        translate: 0 0;
+    }
 }

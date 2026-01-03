@@ -88,7 +88,9 @@ async function populate_grid() {
     if (!database_has_correct_format) return;
     mainWindow.webContents.send('populate_grid', null);
     notify("Database Successfully Loaded", "You are viewing: " + database_file_path.split("\\").slice(-1));
-    if (!has_default_database) save_database_path(); // todo: save if "load last viewed file on start" is checked
+
+    // todo: save if "load last viewed file on start" is checked
+    if (!has_default_database) save_database_path();
 }
 
 function database_has_table_Books() {

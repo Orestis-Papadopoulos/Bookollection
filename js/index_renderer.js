@@ -1,7 +1,7 @@
 
 import * as element from "./index_elements.js";
 
-// todo: populate filters by reading the .db file; each book subject goes to filters
+// todo: populate filters alphabetically by reading the .db file; each book subject goes to filters
 
 // LISTENERS
 
@@ -51,7 +51,7 @@ export function add_to_grid(book) {
     const book_entry_template =  document.querySelector("#book_entry_template");
     const template_clone = book_entry_template.content.cloneNode(true);
 
-    const cover = template_clone.querySelector(".cover");
+    const book_cover = template_clone.querySelector(".book_cover");
     const book_title = template_clone.querySelector(".book_title");
     const authors = template_clone.querySelector(".authors");
     const edition = template_clone.querySelector(".edition");
@@ -59,7 +59,7 @@ export function add_to_grid(book) {
     const book_uid = template_clone.querySelector(".book_uid");
     const page_count = template_clone.querySelector(".page_count");
 
-    cover.src = get_blob_url(book.cover_img);
+    book_cover.src = get_blob_url(book.cover_img);
     book_title.textContent = book.title;
     authors.textContent = book.authors;
     edition.textContent = book.edition + " ed.";
