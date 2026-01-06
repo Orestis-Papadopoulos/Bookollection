@@ -139,12 +139,13 @@
                         <div class="column_layout">
                             <span>Loaded file</span>
                             <div class="row_layout" id="load_another_db_layout">
-                                <input type="search" class="textfield" placeholder="bookollection.db" readonly>
-                                <button class="secondary_btn">Change</button>
+                                <input id="loaded_file" type="search" class="textfield" readonly>
+                                <button class="secondary_btn" id="btn_change">Change</button>
+                                <button class="secondary_btn">Create</button>
                             </div>
                         </div>
                         <div class="row_layout checkbox_layout" id="set_as_default_layout">
-                            <input type="checkbox" id="set_default_database" checked>
+                            <input type="checkbox" id="set_default_database">
                             <label for="set_default_database">Load last viewed file on start</label>
                         </div>
                         <button class="secondary_btn" id="btn_database_options_ok">OK</button>

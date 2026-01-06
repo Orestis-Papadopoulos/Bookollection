@@ -7,8 +7,8 @@ const SQL_CHECK_IF_BOOKS_TABLE = "SELECT name FROM sqlite_master WHERE type='tab
 const SQL_GET_BOOKS_COLUMNS = "PRAGMA table_info(Books)";
 
 var db;
-var database_file_path = fs.readFileSync('database.path.txt', 'utf8');
-const has_default_database = database_file_path.length == 0 ? false : true;
+var settings = require('./settings.json');
+var database_file_path = settings.last_viewed_file;
 
 let tmp_filter_query_args = [];
 
@@ -29,11 +29,12 @@ const createWindow = () => {
     mainWindow.loadFile('index.html');
 
     mainWindow.once('ready-to-show', () => { // prevent black screen on load
-        if (has_default_database) {
+        if (settings.load_last_viewed_file_on_start && settings.last_viewed_file != "") {
             db = new sqlite3.Database(database_file_path);
             populate_grid();
         } else mainWindow.webContents.send('show_database_load_layout', null);
         mainWindow.show();
+        mainWindow.webContents.send('set_load_last_viewed_file_checkbox', settings.load_last_viewed_file_on_start);
     });
 }
 
@@ -64,6 +65,11 @@ app.whenReady().then(() => {
         tmp_filter_query_args = filter_query_args;
     });
 
+    ipcMain.on('set_load_last_viewed_file_setting_channel', (event, value) => {
+        settings.load_last_viewed_file_on_start = value;
+        fs.writeFileSync('./settings.json', JSON.stringify(settings, null, 2));
+    });
+
     ipcMain.handle('get_filtered_books_channel', async (event, sqlQuery) => {
         return new Promise(res => {
             db.all(sqlQuery, tmp_filter_query_args, (err, rows) => {
@@ -86,11 +92,9 @@ app.on('window-all-closed', () => {
 async function populate_grid() {
     let database_has_correct_format = await database_has_table_Books() && await table_Books_has_correct_columns();
     if (!database_has_correct_format) return;
-    mainWindow.webContents.send('populate_grid', null);
+    mainWindow.webContents.send('populate_grid', database_file_path);
     notify("Database Successfully Loaded", "You are viewing: " + database_file_path.split("\\").slice(-1));
-
-    // todo: save if "load last viewed file on start" is checked
-    if (!has_default_database) save_database_path();
+    save_database_path();
 }
 
 function database_has_table_Books() {
@@ -118,9 +122,8 @@ function table_Books_has_correct_columns() {
 }
 
 function save_database_path() {
-    fs.writeFile('database.path.txt', database_file_path, (err) => {
-        if (err) throw err;
-    });
+    settings.last_viewed_file = database_file_path;
+    fs.writeFileSync('./settings.json', JSON.stringify(settings, null, 2));
 }
 
 function notify(title, body) {

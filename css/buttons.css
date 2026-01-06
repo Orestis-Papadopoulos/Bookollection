@@ -43,3 +43,7 @@ button {
 #btn_load_database, #btn_create_database {
     flex-grow: 1;
 }
+
+#btn_database_options_ok {
+    margin-top: 2rem;
+}

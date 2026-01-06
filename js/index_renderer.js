@@ -1,11 +1,16 @@
 
 import * as element from "./index_elements.js";
+import { clear_grid } from "./filters.js"
 
 // todo: populate filters alphabetically by reading the .db file; each book subject goes to filters
 
 // LISTENERS
 
-database_api.no_default_database((value) => {
+database_api.on_settings_read((value) => {
+    element.set_default_database.checked = value;
+});
+
+database_api.on_no_database_to_load((value) => {
     element.database_layout.style.display = "flex";
 });
 
@@ -13,10 +18,16 @@ element.btn_load_database.addEventListener("click", () => {
     database_api.load_database();
 });
 
-database_api.on_database_load((value) => {
+element.btn_change.addEventListener("click", () => {
+    database_api.load_database();
+});
+
+database_api.on_database_load((database_file_path) => {
+    clear_grid();
     populate_books_grid(database_api.get_all_books());
     element.database_layout.style.display = "none";
-    element.parent_layout.classList.toggle("visible");
+    element.parent_layout.style.opacity = "1";
+    element.loaded_file.placeholder = database_file_path.split("\\").slice(-1);
 });
 
 element.btn_filters.addEventListener("click", () => {
@@ -29,6 +40,10 @@ element.btn_database.addEventListener("click", () => {
 
 element.btn_database_options_ok.addEventListener("click", () => {
     element.database_dialog.close();
+});
+
+element.set_default_database.addEventListener("change", function() {
+    database_api.set_load_last_viewed_file_setting(this.checked);
 });
 
 // FUNCTIONS

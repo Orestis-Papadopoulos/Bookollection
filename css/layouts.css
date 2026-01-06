@@ -7,10 +7,6 @@
     transition: opacity 2s ease;
 }
 
-.visible  {
-    opacity: 1;
-}
-
 .row_layout {
     display: flex;
 }
@@ -121,7 +117,7 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
     &[open] {
-        animation: fadeIn 1s forwards;
+        animation: fadeIn ease 1s forwards;
     }
 }
 

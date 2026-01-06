@@ -8,3 +8,8 @@
 .search_textfield {
     width: 40%;
 }
+
+#loaded_file {
+    flex-grow: 1;
+    min-width: 20rem;
+}

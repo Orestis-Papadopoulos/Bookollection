@@ -24,3 +24,7 @@ export const database_layout = document.getElementById("database_layout");
 export const parent_layout = document.getElementById("parent_layout");
 
 export const btn_database_options_ok = document.getElementById("btn_database_options_ok");
+export const btn_change = document.getElementById("btn_change");
+
+export const loaded_file = document.getElementById("loaded_file");
+export const set_default_database = document.getElementById("set_default_database");

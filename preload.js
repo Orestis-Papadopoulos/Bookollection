@@ -16,12 +16,13 @@ let filter_query =
 
 contextBridge.exposeInMainWorld('database_api', {
     get_all_books: () => ipcRenderer.invoke('get_all_books_channel', "SELECT * FROM Books"),
-
-    get_filter_query_args: (filter_query_args) => ipcRenderer.send('get_filter_query_args_channel', filter_query_args),
     get_filtered_books: () => ipcRenderer.invoke('get_filtered_books_channel', filter_query),
 
+    get_filter_query_args: (filter_query_args) => ipcRenderer.send('get_filter_query_args_channel', filter_query_args),
     load_database: () => ipcRenderer.send('load_database'),
-    on_database_load: (callback) => ipcRenderer.on('populate_grid', (_event, value) => callback(value)),
+    set_load_last_viewed_file_setting: (value) => ipcRenderer.send('set_load_last_viewed_file_setting_channel', value),
 
-    no_default_database: (callback) => ipcRenderer.on('show_database_load_layout', (_event, value) => callback(value)),
+    on_database_load: (callback) => ipcRenderer.on('populate_grid', (_event, value) => callback(value)),
+    on_no_database_to_load: (callback) => ipcRenderer.on('show_database_load_layout', (_event, value) => callback(value)),
+    on_settings_read: (callback) => ipcRenderer.on('set_load_last_viewed_file_checkbox', (_event, value) => callback(value)),
 });
