@@ -1,5 +1,5 @@
 
-/* if you reference the stylesheet in index.html, you can call it from other css files */
+/* if you reference the stylesheet in index.html, you can call the animation from other css files */
 
 @keyframes fadeIn {
     from {

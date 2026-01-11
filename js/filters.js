@@ -7,7 +7,7 @@ const subject_checkboxes = document.getElementsByClassName("subject_checkbox");
 let checked_subjects_map = new Map();
 for (let i = 0; i < subject_checkboxes.length; i++) checked_subjects_map.set(subject_checkboxes.item(i).id, false);
 
-// LISTENERS
+// LISTENERS -----------------------------------------------------------------------------------------------------------
 
 element.btn_clear_filters.addEventListener('click', () => {
     clear_filters();
@@ -28,7 +28,7 @@ element.filter_txtboxes.forEach((txtbox) => {
     });
 });
 
-// FUNCTIONS
+// FUNCTIONS -----------------------------------------------------------------------------------------------------------
 
 function clear_filters() {
     checked_subjects_map.forEach((value, key, checked_subjects_map) => checked_subjects_map.set(key, false));
@@ -51,9 +51,13 @@ function apply_filters() {
     });
 
     let no_subject_checked = true;
-    filter_query_args.forEach((subject) => {
-        if (subject != "") no_subject_checked = false;
-    });
+    for (let i = 0; i < filter_query_args.length; i++) {
+        let subject = filter_query_args[i];
+        if (subject != "") {
+            no_subject_checked = false;
+            break;
+        }
+    }
 
     let no_filters_applied = no_subject_checked &&
                              !element.txtbox_copyright_year.value &&
@@ -120,8 +124,6 @@ function apply_filters() {
     // if you pass the % in query in preload, it does not work
     for (let i = 0; i < 4; i++) filter_query_args.push("%" + element.txtbox_search.value + "%");
 
-    console.log(filter_query_args);
-
-    database_api.get_filter_query_args(filter_query_args); // sends filter_query_args to main process
-    populate_books_grid(database_api.get_filtered_books()); // calls get_filtered_books from preload.js
+    database_api.get_filter_query_args(filter_query_args);
+    populate_books_grid(database_api.get_filtered_books());
 }

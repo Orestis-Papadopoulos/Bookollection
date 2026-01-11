@@ -2,11 +2,12 @@
 import * as element from "./index_elements.js";
 import { clear_grid } from "./filters.js"
 
-// todo: populate filters alphabetically by reading the .db file; each book subject goes to filters
+const html_template_error = "Error while populating accounts grid: The HTML template element is not supported by the browser.";
 
-// LISTENERS
+// LISTENERS -----------------------------------------------------------------------------------------------------------
 
 database_api.on_settings_read((value) => {
+    console.log("checked: " + value);
     element.set_default_database.checked = value;
 });
 
@@ -46,7 +47,7 @@ element.set_default_database.addEventListener("change", function() {
     database_api.set_load_last_viewed_file_setting(this.checked);
 });
 
-// FUNCTIONS
+// FUNCTIONS -----------------------------------------------------------------------------------------------------------
 
 export function populate_books_grid(books_promise) {
     books_promise.then((books) => {
@@ -57,7 +58,7 @@ export function populate_books_grid(books_promise) {
         element.hint_no_matches.style.display = "none";
         books.forEach((book) => {
             if ("content" in document.createElement("template")) add_to_grid(book);
-            else console.log("Error while populating accounts grid: The HTML template element is not supported by the browser.");
+            else console.log(html_template_error);
         });
     });
 }
@@ -90,7 +91,6 @@ export function add_to_grid(book) {
 /**
 *   If an element's text does not fit in the layout, the function makes
 *   it oscillate left-right so that all the text is readable.
-*   @param { Node } element The element whose text has overflown
 */
 function animate_overflown_text_of(element) {
     element.animate(

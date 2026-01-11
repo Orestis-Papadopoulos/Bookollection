@@ -1,7 +1,7 @@
 
 const { contextBridge, ipcRenderer } = require('electron')
 
-// if an exact copyright_year (e.g., 2020) is given, do: BETWEEN 2020 AND 2020
+// if an exact copyright_year is given, say 2020, do: BETWEEN 2020 AND 2020
 // if no year is given, do: BETWEEN 1700 AND 3000; to cover all cases
 // similarly for page_count
 let filter_query =

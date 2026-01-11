@@ -1,3 +1,4 @@
+
 const { app, BrowserWindow, ipcMain, dialog, Notification } = require('electron')
 const path = require('node:path');
 const sqlite3 = require('sqlite3');
@@ -9,6 +10,9 @@ const SQL_GET_BOOKS_COLUMNS = "PRAGMA table_info(Books)";
 var db;
 var settings = require('./settings.json');
 var database_file_path = settings.last_viewed_file;
+
+// todo: check if the file is still in the stored path
+// todo: populate filters alphabetically by reading the .db file; each book subject goes to filters
 
 let tmp_filter_query_args = [];
 
@@ -33,8 +37,8 @@ const createWindow = () => {
             db = new sqlite3.Database(database_file_path);
             populate_grid();
         } else mainWindow.webContents.send('show_database_load_layout', null);
-        mainWindow.show();
         mainWindow.webContents.send('set_load_last_viewed_file_checkbox', settings.load_last_viewed_file_on_start);
+        mainWindow.show();
     });
 }
 
@@ -88,6 +92,8 @@ app.whenReady().then(() => {
 app.on('window-all-closed', () => {
     if (process.platform !== 'darwin') app.quit()
 })
+
+// FUNCTIONS -----------------------------------------------------------------------------------------------------------
 
 async function populate_grid() {
     let database_has_correct_format = await database_has_table_Books() && await table_Books_has_correct_columns();
